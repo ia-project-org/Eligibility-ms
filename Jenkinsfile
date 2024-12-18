@@ -5,7 +5,7 @@ pipeline {
         maven 'Maven3'
     }
     environment {
-        REPO_URL = 'https://github.com/ia-project-org/eureka-server-discovery.git'
+        REPO_URL = 'https://github.com/ia-project-org/Eligibility-ms.git'
         MANIFEST_REPO = 'https://github.com/MINAWI0/manifest-argo.git'
         REGISTRY = 'minaouimh/ai'
         REGISTRY_CREDENTIAL = 'dockerhub'
