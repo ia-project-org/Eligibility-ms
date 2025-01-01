@@ -1,10 +1,2 @@
-spring:
-  application:
-    name: Eligibility-ms
-
-  cloud:
-    config:
-      uri: http://localhost:8888
-      fail-fast: true
 client:
-  cros: http://localhost:5173
+  cros: "${CROS_URL:http://localhost:5173}"
