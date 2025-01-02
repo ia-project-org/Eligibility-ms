@@ -33,7 +33,7 @@ public class EligibityScheduled {
         RecommendationJob = recommendationJob;
     }
 
-    @Scheduled(cron = "0 35 1 * * ?")
+    @Scheduled(cron = "0 50 13 * * ?")
     public void startjob() throws JobInstanceAlreadyCompleteException, JobExecutionAlreadyRunningException, JobParametersInvalidException, JobRestartException {
         JobParameters jobParameters = new JobParametersBuilder()
 
@@ -45,7 +45,7 @@ public class EligibityScheduled {
         jobLauncher.run(ClientEligibilityJob,jobParameters);
     }
 
-    @Scheduled(cron = "0 40 1 * * ?")
+    @Scheduled(cron = "0 55 13 * * ?")
     public void StartRecommendJob() throws JobInstanceAlreadyCompleteException, JobExecutionAlreadyRunningException, JobParametersInvalidException, JobRestartException {
         JobParameters jobParameters = new JobParametersBuilder()
 
