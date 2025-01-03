@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestBody;
  *  Feign for communication with IaModel-ms service
  *  Ribbon for loadBalancing
  */
-@FeignClient(name = "iamodel-ms")
-@RibbonClient(name = "iamodel-ms")
+@FeignClient(name = "IaModel-ms")
+@RibbonClient(name = "IaModel-ms")
 public interface IaModelMsProxy {
 
     /***
