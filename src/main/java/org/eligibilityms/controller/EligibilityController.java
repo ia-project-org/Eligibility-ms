@@ -3,6 +3,7 @@ package org.eligibilityms.controller;
 import com.jayway.jsonpath.JsonPath;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
+import org.eligibilityms.dto.ClientDetailsDto;
 import org.eligibilityms.model.Notification;
 import org.eligibilityms.proxy.BankMsProxy;
 import org.eligibilityms.proxy.IaModelMsProxy;
@@ -23,6 +24,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
 
+import static org.eligibilityms.mapper.ClientLoanMapper.toLoanDto;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/eligibility")
@@ -34,7 +37,9 @@ public class EligibilityController {
 
     private final JobLauncher jobLauncher;
 
-    private final Job RecommendationJob;
+    private final IaModelMsProxy iaModelMsProxy;
+
+    private final Job EligibilityJob;
 
     /**
      * get the eligibility status for a single client
@@ -58,6 +63,12 @@ public class EligibilityController {
         return ResponseEntity.ok().body(eligibilityStatusService.evaluateClientEligibility(clientId));
     }
 
+
+    @PostMapping("/recomand")
+    public ResponseEntity<?> recomand(@RequestBody ClientDetailsDto clientDetailsDto) {
+        return ResponseEntity.ok().body(iaModelMsProxy.RecommendCreditsToClient(toLoanDto(clientDetailsDto)));
+    }
+
     @GetMapping("/notifications")
     public ResponseEntity<Page<Notification>> getEligibilityStatusNotifications(
             @RequestParam(defaultValue = "0") int page,
@@ -73,7 +84,7 @@ public class EligibilityController {
                 .addString("chunkSize", "20")  // Example value
                 .addString("timestamp", String.valueOf(System.currentTimeMillis())) // Unique parameter
                 .toJobParameters();
-        jobLauncher.run(RecommendationJob,jobParameters);
+        jobLauncher.run(EligibilityJob,jobParameters);
         return ResponseEntity.ok().body("ok");
     }
     /**
