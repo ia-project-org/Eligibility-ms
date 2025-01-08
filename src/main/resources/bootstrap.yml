@@ -3,5 +3,5 @@ spring:
     name: Eligibility-ms
   cloud:
     config:
-      uri: https://configserver-1-7zer.onrender.com
+      uri: "${CONFIG_SERVER_URI:http://34.41.170.207:32002}"
       fail-fast: true
